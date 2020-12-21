@@ -2,7 +2,7 @@
 <div style="text-align:left">
   <el-row >
       <el-col :span="6">
-        <h1>Step 1: Upload</h1>
+        <h1 class="el-icon-upload">Step 1: Upload</h1>
         <el-upload style="margin-right: 50px;"
           class="upload-demo"
           drag
@@ -19,13 +19,18 @@
         <el-button style="margin-top: 10px;" size="small" type="success" @click="submitUpload">Upload to server</el-button>
       </el-col>
       <el-col :span="18" class="result">
-        <h1>Result</h1>
-
+        <h1 style="color:navy-blue">Patient Information</h1>
+      <br>
         <div style="width: 600px;" v-if="records['patient']">
-          <div v-for="(item,index) in records['patient']" :key="index">
-              <label>{{ index }}</label>
-              <el-input :value="item"></el-input>
+
+          <div v-for="x in records['patient']" :key="x">
+
+              <label style="color:#006DFF">{{ x[0]}}</label>
+              <el-input :value="x[1]"></el-input>
               <br><br>
+              <h1 v-if="x[0]=='address'"  style="color:navy-blue">Emergency Information<v-divider></v-divider></h1>
+              
+              <h1 v-if="x[0]=='work phone'" style="color:navy-blue">General Medical History</h1>
             
           </div>
           <div>

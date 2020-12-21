@@ -2,10 +2,10 @@ import os
 import sys
 import random
 import string
+import logging
 from flask import Flask, request, json
 from parser.parser import parse
 from flask_cors import CORS
-import logging
 ROOT_DIR = os.path.dirname(__file__)
 PARENT_DIR = os.path.dirname(__file__) + '/' + str(os.pardir)
 sys.path.append(PARENT_DIR)
@@ -46,10 +46,15 @@ def extract_fields():
         file_path = app.config['UPLOAD_FOLDER'] + "/"\
             + get_random_string(32) + ".pdf"
         file.save(file_path)
-        text, patient = parse(file_path, format)
+        text, patient, error = parse(file_path, format)
         
         app.logger.info("-------------------------------------------------------")
         app.logger.info(patient)
+        app.logger.info("-------------------------------------------------------")
+        app.logger.info(error)
+        app.logger.info("-------------------------------------------------------")
+        app.logger.info(text)
+        app.logger.info("-------------------------------------------------------")
         response = app.response_class(
             response=json.dumps({
                 "text": text,
