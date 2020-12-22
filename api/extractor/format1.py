@@ -240,17 +240,26 @@ def extract_details(text):
 
     # address = address.strip()
     patient =[
-           ("name", name),
-            # "gender"), gender),
+        ("Patient Information",
+        [  ("name", name),
+            # "gender"), gender),o
             ("phone", phone),
             ("dob", dob),
             ("height", height),
             ("weight", weight),
-            ("address", addr),
-            ("Name", ename),
+            ("address", addr)
+            
+        ]),
+        ("Emergency Information",
+
+        [   ("Name", ename),
             ("Address", emr_addr),
             ("home phone", home_phone),
-            ("work phone", work),
+            ("work phone", work)
+        ]),
+
+        ("General Medical History",
+        [
             ("Chicken Pox (Varicella)" ,chicken),
             ("Measles", meas),
             ("Have you had the Hepatitis B vaccination?",hepa),
@@ -261,6 +270,8 @@ def extract_details(text):
             ("Have medical insurance?",havemed),
             ("Any Allergies",alrg),
             ("Any Medications Regularly",madication)
+
+        ])
     ]
 
     

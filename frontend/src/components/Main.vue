@@ -19,18 +19,18 @@
         <el-button style="margin-top: 10px;" size="small" type="success" @click="submitUpload">Upload to server</el-button>
       </el-col>
       <el-col :span="18" class="result">
-        <h1 style="color:navy-blue">Patient Information</h1>
-      <br>
         <div style="width: 600px;" v-if="records['patient']">
 
           <div v-for="x in records['patient']" :key="x">
 
-              <label style="color:#006DFF">{{ x[0]}}</label>
-              <el-input :value="x[1]"></el-input>
+              <h1 style="color:navy-blue">{{ x[0]}}</h1>
+              <div v-for="y in x[1]" :key="y">
+              <label style="color:#006DFF">{{ y[0]}}</label>
+              <el-input :value="y[1]"></el-input>
               <br><br>
-              <h1 v-if="x[0]=='address'"  style="color:navy-blue">Emergency Information<v-divider></v-divider></h1>
+
+              </div>
               
-              <h1 v-if="x[0]=='work phone'" style="color:navy-blue">General Medical History</h1>
             
           </div>
           <div>
