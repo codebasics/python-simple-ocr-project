@@ -47,14 +47,13 @@ def extract_fields():
             + get_random_string(32) + ".pdf"
         file.save(file_path)
         text, patient, error = parse(file_path, format)
-        
-        app.logger.info("-------------------------------------------------------")
+        app.logger.info("----------------------------------")
         app.logger.info(patient)
-        app.logger.info("-------------------------------------------------------")
+        app.logger.info("-----------------------------------")
         app.logger.info(error)
-        app.logger.info("-------------------------------------------------------")
+        app.logger.info("---------------------------------------")
         app.logger.info(text)
-        app.logger.info("-------------------------------------------------------")
+        app.logger.info("------------------------------------------")
         response = app.response_class(
             response=json.dumps({
                 "text": text,
@@ -78,7 +77,6 @@ def extract_fields():
             )
         if file_path:
             os.remove(file_path)
-       
         return response
 
 

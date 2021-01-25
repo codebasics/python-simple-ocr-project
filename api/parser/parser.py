@@ -9,6 +9,7 @@ PARENT_DIR = os.path.dirname(__file__) + '/' + str(os.pardir)
 sys.path.append(PARENT_DIR)
 logging.basicConfig(level=logging.DEBUG)
 
+
 def parse(file_name, file_format):
     """
     coverts pdf to a list of image
@@ -16,7 +17,7 @@ def parse(file_name, file_format):
     """
     pages = convert_from_path(file_name, 500)
 
-    text=""
+    text = ""
     # app.logger.info("sfd");
     error = None
     try:
@@ -26,4 +27,3 @@ def parse(file_name, file_format):
         patient = None
         error = e
     return text, patient, error
-
