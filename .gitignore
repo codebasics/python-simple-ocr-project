@@ -127,6 +127,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-frontend/.editorconfig
-frontend/.babelrc
-frontend/.postcssrc.js
