@@ -36,8 +36,6 @@ def get_information(img_list, file_format):
     returns dict containing information
     """
     # first pass
-    app.logger.info("milestone")
-
     for i in range(len(img_list)):
         gray = cv2.cvtColor(np.array(img_list[i]), cv2.COLOR_BGR2GRAY)
         temp = cv2.resize(gray, None, fx=2, fy=2, interpolation=cv2.INTER_LINEAR) # noqa

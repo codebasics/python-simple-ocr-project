@@ -71,10 +71,10 @@ def extract_details(text):
     emr_name = re.search(r"Case of Emergency\n\n([a-zA-Z0-9, ]+)", text)
     if emr_name is not None:
         emr_name = emr_name.groups()
-        ename = str(emr_name[0])
-        ename = ename.strip()
+        emergency_name = str(emr_name[0])
+        emergency_name = emergency_name.strip()
     else:
-        ename = ""
+        emergency_name = ""
 
     emr_addr = re.search(r"Height:\n*[\d]+\n\n([0-9A-Za-z\n\s\,]+)", text)
     if emr_addr is not None:
@@ -114,9 +114,9 @@ def extract_details(text):
     else:
         chicken = ""
 
-    measles_search = re.search(r"Measles:\n\n([a-zA-z0-9, \/]+)", text)
+    measles_search = re.search(r"Measles:\n*([a-zA-z0-9, \/]+)\n*", text)
     if measles_search is not None:
-        measles_search = measles_search.groups()
+        measles_search = measles_search.groups()    
         meas = str(measles_search[0])
         meas = meas.strip()
     else:
@@ -132,10 +132,10 @@ def extract_details(text):
     else:
         hepa = ""
 
-    med_search = re.search(
-        r"headaches\)\:\n*([0-9A-Za-z\n\s,.\/]+)\n*Page*", text
-        )
     med_search1 = re.search(
+        r"headaches\)\:\n*([0-9A-Za-z\n\s,.\/]+)\n*Page", text
+        )
+    med_search = re.search(
         r"headaches\)\:\n*([0-9A-Za-z\n\s,.\/]+)\n*Create*", text
         )
     med_search2 = re.search(
@@ -198,21 +198,21 @@ def extract_details(text):
     else:
         havemed = ""
 
-    alrgess_search = re.search(
+    allergies_search = re.search(
         r"List any allergies:\n*([0-9A-Za-z\n\s,.\/]+)\n\n", text
         )
-    if alrgess_search is not None:
-        alrgess_search = alrgess_search.groups()
-        alrgess = str(alrgess_search[0])
-        alrg1 = alrgess.split("\n\n")
-        tempalrg = alrg1[0]
-        alrg = str(tempalrg)
+    if allergies_search is not None:
+        allergies_search = allergies_search.groups()
+        allergies = str(allergies_search[0])
+        alrg1 = allergies.split("\n\n")
+        temp_alrg = alrg1[0]
+        alrg = str(temp_alrg)
         alrg.replace("\n", " ")
         alrg = alrg.strip()
     else:
         alrg = ""
 
-    madicationess_search = re.search(r"List any medication taken regularly:\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*Create*", text) # noqa
+    madication_search = re.search(r"List any medication taken regularly:\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*Create*", text) # noqa
     mad = re.search(r"Expiry Date:\n*[a-zA-Z0-9, ]+\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*Create*", text) # noqa
     mad2 = re.search(r"Expiry Date:\n*[a-zA-Z0-9, ]+\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*€}", text) # noqa
     mad3 = re.search(r"List any medication taken regularly:\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*", text) # noqa
@@ -221,10 +221,10 @@ def extract_details(text):
         mad = mad.groups()
         mad = str(mad[0])
         madication = mad.strip()
-    elif madicationess_search is not None:
-        madicationess_search = madicationess_search.groups()
-        madicationess = str(madicationess_search[0])
-        madication = madicationess.strip()
+    elif madication_search is not None:
+        madication_search = madication_search.groups()
+        madication_temp = str(madication_search[0])
+        madication = madication_temp.strip()
     elif mad2 is not None:
         mad2 = mad2.groups()
         mad2 = str(mad2[0])
@@ -260,7 +260,7 @@ def extract_details(text):
          ),
         ("Emergency Information",
          [
-             ("Name", ename),
+             ("Name", emergency_name),
              ("Address", emr_addr),
              ("home phone", home_phone),
              ("work phone", work)
