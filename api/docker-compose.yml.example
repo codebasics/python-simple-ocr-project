@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  app:
+    container_name: ocr-api
+    build: .
+    volumes:
+      - './:/project/'
+    restart: always
+  web:
+    image: nginx
+    volumes:
+      - './nginx.conf:/etc/nginx/conf.d/default.conf'
+    ports:
+      - '5001:80'
+    links:
+      - app
+    restart: always
