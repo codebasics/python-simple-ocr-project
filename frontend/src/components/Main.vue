@@ -13,7 +13,7 @@
           accept=".pdf"
           :auto-upload="false"
           :data="data"
-          action="http://0.0.0.0:5001/ocr"
+          :action="ocr_endpoint"
           :on-success="onSuccess"
         >
           <i class="el-icon-upload"></i>
@@ -76,6 +76,7 @@
 
 <script>
 import axios from "axios";
+import API_URL from "../constants";
 export default {
   name: "Main",
   methods: {
@@ -86,6 +87,7 @@ export default {
       }
     },
     submitUpload() {
+      console.log(this.ocr_endpoint);
       this.loading = this.$loading({
         lock: true,
         text: "Loading",
@@ -96,6 +98,7 @@ export default {
   },
   data() {
     return {
+      ocr_endpoint: API_URL + "/ocr",
       loading: null,
       records: {},
       formats: [{ type: "patient_details", name: "Patient Details" }],
