@@ -1,9 +1,8 @@
 import os
 import sys
-import random
-import string
 import logging
 from flask import Flask, request, json
+from utils.generic_utils import get_random_string, allowed_file
 from parser.parser import parse
 from flask_cors import CORS
 ROOT_DIR = os.path.dirname(__file__)
@@ -15,29 +14,10 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = "uploads"
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 cors = CORS(app)
-# gunicorn_logger = logging.getLogger('gunicorn.error')
-# app.logger.handler = gunicorn_logger.handlers
-# app.logger.setLevel(gunicorn_logger.level)
-
-
-def get_random_string(length):
-    var = ''.join(
-        [
-            random.choice(string.ascii_letters + string.digits)
-            for n in range(length)
-        ]
-    )
-    return var
-
-
-def allowed_file(filename):
-    ALLOWED_EXTENSIONS = set(['pdf'])
-    return '.' in filename\
-        and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @app.route('/ocr', methods=['POST'])
-def extract_fields():
+def ocr_patient_details():
     file_path = ''
     try:
         format = request.form['format']
@@ -48,12 +28,8 @@ def extract_fields():
         file.save(file_path)
         text, patient, error = parse(file_path, format)
         app.logger.info("----------------------------------")
-        app.logger.info(patient)
-        app.logger.info("-----------------------------------")
-        app.logger.info(error)
-        app.logger.info("---------------------------------------")
-        app.logger.info(text)
-        app.logger.info("------------------------------------------")
+        app.logger.info(f"Patient: {patient}")
+        app.logger.info("----------------------------------")
         response = app.response_class(
             response=json.dumps({
                 "text": text,
