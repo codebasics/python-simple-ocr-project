@@ -87,7 +87,6 @@ export default {
       }
     },
     submitUpload() {
-      console.log(this.ocr_endpoint);
       this.loading = this.$loading({
         lock: true,
         text: "Loading",
