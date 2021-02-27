@@ -2,6 +2,18 @@ import re
 
 
 def extract_details(text):
+    """Extract patient details from the text
+
+    Parameters
+    ----------
+    text : str
+        text to be searched for Details
+
+    Returns
+    -------
+    patient: list(tuples)
+        patient data extracted from text
+    """
     name_regex = r"Patient Information\n*([a-zA-Z0-9, ]+)"
     name_search = re.search(name_regex, text)
 
@@ -56,17 +68,17 @@ def extract_details(text):
     address_search = re.search(
         r"\([\d]+\) [\d]+\-[\d]+\n\n([0-9A-Za-z\n\s\,]+)", text
         )
-    addr = ""
+    address = ""
     if address_search is not None:
         address_search = address_search.groups()
         address = str(address_search[0])
         addr1 = address.split("\n\n")
         tempaddr = addr1[0]
-        addr = str(tempaddr)
-        ' '.join(addr.splitlines())
-        addr = addr.strip()
+        address = str(tempaddr)
+        ' '.join(address.splitlines())
+        address = address.strip()
     else:
-        addr = ""
+        address = ""
 
     emr_name = re.search(r"Case of Emergency\n\n([a-zA-Z0-9, ]+)", text)
     if emr_name is not None:
@@ -104,99 +116,99 @@ def extract_details(text):
     else:
         work = ""
 
-    chicken_search = re.search(
+    chicken_pox_search = re.search(
         r"Chicken Pox \(Varicella\):\n*([a-zA-Z0-9, \/]+)", text
         )
-    if chicken_search is not None:
-        chicken_search = chicken_search.groups()
-        chicken = str(chicken_search[0])
-        chicken = chicken.strip()
+    if chicken_pox_search is not None:
+        chicken_pox_search = chicken_pox_search.groups()
+        chicken_pox = str(chicken_pox_search[0])
+        chicken_pox = chicken_pox.strip()
     else:
-        chicken = ""
+        chicken_pox = ""
 
     measles_search = re.search(r"Measles:\n*([a-zA-z0-9, \/]+)\n*", text)
     if measles_search is not None:
         measles_search = measles_search.groups()    
-        meas = str(measles_search[0])
-        meas = meas.strip()
+        measles = str(measles_search[0])
+        measles = measles.strip()
     else:
-        meas = ""
+        measles = ""
 
     hepa_search = re.search(
         r"Have you had the Hepatitis B vaccination\?\n\n([a-zA-z0-9, ]+)", text
                             )
     if hepa_search is not None:
         hepa_search = hepa_search.groups()
-        hepa = str(hepa_search[0])
-        hepa = hepa.strip()
+        hepatitis_b_vaccine = str(hepa_search[0])
+        hepatitis_b_vaccine = hepatitis_b_vaccine.strip()
     else:
-        hepa = ""
+        hepatitis_b_vaccine = ""
 
-    med_search1 = re.search(
+    medical_problems_search1 = re.search(
         r"headaches\)\:\n*([0-9A-Za-z\n\s,.\/]+)\n*Page", text
         )
-    med_search = re.search(
+    medical_problems_search = re.search(
         r"headaches\)\:\n*([0-9A-Za-z\n\s,.\/]+)\n*Create*", text
         )
-    med_search2 = re.search(
+    medical_problems_search2 = re.search(
         r"headaches\)\:\n*([0-9A-Za-z\n\s,.\/]+)\n*€}", text
         )
-    med_search3 = re.search(
+    medical_problems_search3 = re.search(
         r"headaches\)\:\n*([0-9A-Za-z\n\s,.\/]+)\n*Name", text
         )
 
-    if med_search is not None:
-        med_search = med_search.groups()
-        medess = str(med_search[0])
-        med = medess.strip()
-    elif med_search1 is not None:
-        med_search1 = med_search1.groups()
-        medess = str(med_search1[0])
-        med = medess.strip()
-    elif med_search2 is not None:
-        med_search2 = med_search2.groups()
-        med2 = str(med_search2[0])
-        med = med2.strip()
-    elif med_search3 is not None:
-        med_search3 = med_search3.groups()
-        med2 = str(med_search3[0])
-        med = med2.strip()
+    if medical_problems_search is not None:
+        medical_problems_search = medical_problems_search.groups()
+        medical_problems = str(medical_problems_search[0])
+        medical_problems = medical_problems.strip()
+    elif medical_problems_search1 is not None:
+        medical_problems_search1 = medical_problems_search1.groups()
+        medical_problems = str(medical_problems_search1[0])
+        medical_problems = medical_problems.strip()
+    elif medical_problems_search2 is not None:
+        medical_problems_search2 = medical_problems_search2.groups()
+        med2 = str(medical_problems_search2[0])
+        medical_problems = med2.strip()
+    elif medical_problems_search3 is not None:
+        medical_problems_search3 = medical_problems_search3.groups()
+        med2 = str(medical_problems_search3[0])
+        medical_problems = med2.strip()
     else:
-        med = ""
+        medical_problems = ""
 
-    ins_search = re.search(r"Name of Insurance Company:\n*([a-zA-Z, ]+)", text)
-    if ins_search is not None:
-        ins_search = ins_search.groups()
-        insurance = str(ins_search[0])
-        insurance = insurance.strip()
+    insurance_company_search = re.search(r"Name of Insurance Company:\n*([a-zA-Z, ]+)", text)
+    if insurance_company_search is not None:
+        insurance_company_search = insurance_company_search.groups()
+        insurance_company = str(insurance_company_search[0])
+        insurance_company = insurance_company.strip()
     else:
-        insurance = ""
+        insurance_company = ""
 
-    pol_search = re.search(r"Policy Number:\n*[a-zA-Z\s, ]*([0-9]+)", text)
-    if pol_search is not None:
-        pol_search = pol_search.groups()
-        policyno = str(pol_search[0])
-        policyno = policyno.strip()
+    policy_no_search = re.search(r"Policy Number:\n*[a-zA-Z\s, ]*([0-9]+)", text)
+    if policy_no_search is not None:
+        policy_no_search = policy_no_search.groups()
+        policy_no = str(policy_no_search[0])
+        policy_no = policy_no.strip()
     else:
-        policyno = ""
+        policy_no = ""
 
-    exp_search = re.search(r"Expiry Date:\n*([a-zA-Z0-9, ]+)", text)
-    if exp_search is not None:
-        exp_search = exp_search.groups()
-        expdate = str(exp_search[0])
-        expdate = expdate.strip()
+    expiry_date_search = re.search(r"Expiry Date:\n*([a-zA-Z0-9, ]+)", text)
+    if expiry_date_search is not None:
+        expiry_date_search = expiry_date_search.groups()
+        expiry_date = str(expiry_date_search[0])
+        expiry_date = expiry_date.strip()
     else:
-        expdate = ""
+        expiry_date = ""
 
-    hm_search = re.search(
+    medical_insurance_flag_search = re.search(
         r"Do you have medical insurance\?\n*([a-zA-Z0-9, \/]+)", text
         )
-    if hm_search is not None:
-        hm_search = hm_search.groups()
-        havemed = str(hm_search[0])
-        havemed = havemed.strip()
+    if medical_insurance_flag_search is not None:
+        hm_search = medical_insurance_flag_search.groups()
+        has_medical_insurance = str(hm_search[0])
+        has_medical_insurance = has_medical_insurance.strip()
     else:
-        havemed = ""
+        has_medical_insurance = ""
 
     allergies_search = re.search(
         r"List any allergies:\n*([0-9A-Za-z\n\s,.\/]+)\n\n", text
@@ -204,37 +216,37 @@ def extract_details(text):
     if allergies_search is not None:
         allergies_search = allergies_search.groups()
         allergies = str(allergies_search[0])
-        alrg1 = allergies.split("\n\n")
-        temp_alrg = alrg1[0]
-        alrg = str(temp_alrg)
-        alrg.replace("\n", " ")
-        alrg = alrg.strip()
+        allergies1 = allergies.split("\n\n")
+        temp_allergies = allergies1[0]
+        allergies = str(temp_allergies)
+        allergies.replace("\n", " ")
+        allergies = allergies.strip()
     else:
-        alrg = ""
+        allergies = ""
 
-    madication_search = re.search(r"List any medication taken regularly:\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*Create*", text) # noqa
-    mad = re.search(r"Expiry Date:\n*[a-zA-Z0-9, ]+\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*Create*", text) # noqa
-    mad2 = re.search(r"Expiry Date:\n*[a-zA-Z0-9, ]+\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*€}", text) # noqa
-    mad3 = re.search(r"List any medication taken regularly:\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*", text) # noqa
+    medication_search = re.search(r"List any medication taken regularly:\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*Create*", text) # noqa
+    med = re.search(r"Expiry Date:\n*[a-zA-Z0-9, ]+\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*Create*", text) # noqa
+    med2 = re.search(r"Expiry Date:\n*[a-zA-Z0-9, ]+\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*€}", text) # noqa
+    med3 = re.search(r"List any medication taken regularly:\n*([0-9A-Za-z\n\n\s,. \/\:]+)\n*", text) # noqa
 
-    if mad is not None:
-        mad = mad.groups()
-        mad = str(mad[0])
-        madication = mad.strip()
-    elif madication_search is not None:
-        madication_search = madication_search.groups()
-        madication_temp = str(madication_search[0])
-        madication = madication_temp.strip()
-    elif mad2 is not None:
-        mad2 = mad2.groups()
-        mad2 = str(mad2[0])
-        madication = mad2.strip()
-    elif mad3 is not None:
-        mad3 = mad3.groups()
-        mad2 = str(mad3[0])
-        madication = mad2.strip()
+    if med is not None:
+        med = med.groups()
+        med = str(med[0])
+        medication = med.strip()
+    elif medication_search is not None:
+        medication_search = medication_search.groups()
+        medication_temp = str(medication_search[0])
+        medication = medication_temp.strip()
+    elif med2 is not None:
+        med2 = med2.groups()
+        med2 = str(med2[0])
+        medication = med2.strip()
+    elif med3 is not None:
+        med3 = med3.groups()
+        med2 = str(med3[0])
+        medication = med2.strip()
     else:
-        madication = ""
+        medication = ""
 
 #     Date of Birth: 12/10/1948 Age: 70 y.o.
     # address_regex = r"
@@ -255,7 +267,7 @@ def extract_details(text):
             ("dob", dob),
             ("height", height),
             ("weight", weight),
-            ("address", addr)
+            ("address", address)
             ]
          ),
         ("Emergency Information",
@@ -269,16 +281,16 @@ def extract_details(text):
 
         ("General Medical History",
          [
-            ("Chicken Pox (Varicella)", chicken),
-            ("Measles", meas),
-            ("Have you had the Hepatitis B vaccination?", hepa),
-            ("Medical Problems", med),
-            ("Name of Insuarance Company", insurance),
-            ("Policy Number", policyno),
-            ("Expiry Date", expdate),
-            ("Have medical insurance?", havemed),
-            ("Any Allergies", alrg),
-            ("Any Medications Regularly", madication)
+            ("Chicken Pox (Varicella)", chicken_pox),
+            ("Measles", measles),
+            ("Have you had the Hepatitis B vaccination?", hepatitis_b_vaccine),
+            ("Medical Problems", medical_problems),
+            ("Name of Insuarance Company", insurance_company),
+            ("Policy Number", policy_no),
+            ("Expiry Date", expiry_date),
+            ("Have medical insurance?", has_medical_insurance),
+            ("Any Allergies", allergies),
+            ("Any Medications Regularly", medication)
             ]
          )
     ]
