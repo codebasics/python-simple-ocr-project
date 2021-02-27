@@ -2,7 +2,7 @@ import os
 import sys
 import logging
 from pdf2image import convert_from_path
-from extractor.extract import get_information
+from extractor import extract_details
 
 ROOT_DIR = os.path.dirname(__file__)
 PARENT_DIR = os.path.dirname(__file__) + '/' + str(os.pardir)
@@ -22,8 +22,8 @@ def parse(file_name, file_format):
     error = None
     try:
         # app.logger.info("------")
-        text, patient = get_information(pages, file_format)
+        text, data = extract_details(pages, file_format)
     except Exception as e:
-        patient = None
+        data = None
         error = e
-    return text, patient, error
+    return text, data, error
