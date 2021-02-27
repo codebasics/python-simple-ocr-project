@@ -1,7 +1,7 @@
 import cv2
 from flask import current_app as app
 from extractor import format1
-from image_utils.image_to_string import from_image_to_string
+from utils.image_utils import get_text_from_image_list
 import numpy as np
 
 functions = {
@@ -20,7 +20,7 @@ def get_information(img_list, file_format):
         temp = cv2.resize(gray, None, fx=2, fy=2, interpolation=cv2.INTER_LINEAR) # noqa
         img_list[i] = cv2.adaptiveThreshold(temp, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 61, 11) # noqa
 
-    text = from_image_to_string(img_list)
+    text = get_text_from_image_list(img_list)
     app.logger.info(text)
     patient = functions[file_format].extract_details(text)
     # check for missing values in patient

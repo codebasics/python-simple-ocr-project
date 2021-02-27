@@ -10,7 +10,7 @@ config_str = (
             )
 
 
-def from_image_to_string(img_list):
+def get_text_from_image_list(img_list):
     """
     extracts text from the list of images
     applies tesseract on entire image without any preprocessing
