@@ -17,7 +17,7 @@ cors = CORS(app)
 
 
 @app.route('/ocr', methods=['POST'])
-def ocr_patient_details():
+def ocr():
     file_path = ''
     try:
         format = request.form['format']
@@ -26,14 +26,14 @@ def ocr_patient_details():
         file_path = app.config['UPLOAD_FOLDER'] + "/"\
             + get_random_string(32) + ".pdf"
         file.save(file_path)
-        text, patient, error = parse(file_path, format)
+        text, data, error = parse(file_path, format)
         app.logger.info("----------------------------------")
-        app.logger.info(f"Patient: {patient}")
+        app.logger.info(f"Data: {data}")
         app.logger.info("----------------------------------")
         response = app.response_class(
             response=json.dumps({
                 "text": text,
-                "patient": patient
+                "data": data
             }),
             status=200,
             mimetype='application/json'

@@ -51,8 +51,8 @@
         >
       </el-col>
       <el-col :span="18" class="result">
-        <div style="width: 600px" v-if="records['patient']">
-          <div v-for="x in records['patient']" :key="x">
+        <div style="width: 600px" v-if="records['data']">
+          <div v-for="x in records['data']" :key="x">
             <h2 style="color: navy-blue">{{ x[0] }}</h2>
             <div v-for="y in x[1]" :key="y">
               <label style="color: #006dff">{{ y[0] }}</label>
