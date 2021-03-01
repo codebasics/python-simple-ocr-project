@@ -1,12 +1,12 @@
 <template>
   <div style="text-align: left">
-    <h1 class>OCR Document Scanner using Python and Vue</h1>
-    <el-row>
-      <el-col :span="6">
+    <h1 >OCR Document Scanner using Python and Vue</h1>
+    <el-row >
+      <el-col :span="6" >
         <h2 class="el-icon-upload2"> Step 1: Upload</h2>
 
         <el-upload
-          style="margin-right: 50px"
+          style="margin-right: 50px;"
           class="upload-demo"
           drag
           ref="upload"
@@ -16,7 +16,7 @@
           :action="ocr_endpoint"
           :on-success="onSuccess"
         >
-          <i class="el-icon-upload"></i>
+          <i class="el-icon-upload" ></i>
           <div class="el-upload__text">
             Drop file here or <em>click to upload</em>
           </div>
@@ -35,6 +35,8 @@
             v-bind:key="item.id"
             :value="item.type"
             :label="item.name"
+            
+
           >
             {{ item.name }}
           </el-option>
@@ -50,7 +52,7 @@
           >Process</el-button
         >
       </el-col>
-      <el-col :span="18" class="result">
+      <el-col :span="18" class="result" style="padding-left:100px;">
         <div style="width: 600px" v-if="records['data']">
           <div v-for="x in records['data']" :key="x">
             <h2 style="color: navy-blue">{{ x[0] }}</h2>
@@ -86,19 +88,24 @@ export default {
         this.loading.close();
       }
     },
-    submitUpload() {
+    submitUpload(event) {
+      event.preventDefault();
+      if(this.data.format)
+      {
       this.loading = this.$loading({
         lock: true,
         text: "Loading",
         spinner: "el-icon-loading",
       });
       this.$refs.upload.submit();
+      }
     },
   },
   data() {
     return {
       ocr_endpoint: API_URL + "/ocr",
       loading: null,
+      selected:null,
       records: {},
       formats: [{ type: "patient_details", name: "Patient Details" }],
       data: {

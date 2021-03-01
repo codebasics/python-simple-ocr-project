@@ -26,7 +26,8 @@ def ocr():
         file_path = app.config['UPLOAD_FOLDER'] + "/"\
             + get_random_string(32) + ".pdf"
         file.save(file_path)
-        text, data, error = parse(file_path, format)
+        text, data, error = parse(file_path, format) # noqa
+        
         app.logger.info("----------------------------------")
         app.logger.info(f"Data: {data}")
         app.logger.info("----------------------------------")
