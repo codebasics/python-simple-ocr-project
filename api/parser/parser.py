@@ -2,7 +2,7 @@ import os
 import sys
 import logging
 from pdf2image import convert_from_path
-from extractor import extract_details
+from extractor.extract_details import extract_details
 
 ROOT_DIR = os.path.dirname(__file__)
 PARENT_DIR = os.path.dirname(__file__) + '/' + str(os.pardir)

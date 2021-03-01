@@ -1,10 +1,6 @@
 from flask import current_app as app
-from extractor import patient_details
 from utils.image_utils import get_text_from_image_list
-
-functions = {
-    'patient_details': patient_details
-}
+from . import FUNCTIONS
 
 
 def extract_details(page_list, file_format):
@@ -29,5 +25,5 @@ def extract_details(page_list, file_format):
 
     text = get_text_from_image_list(page_list)
     app.logger.info(text)
-    data = functions[file_format].extract_details(text)
+    data = FUNCTIONS[file_format].extract_details(text)
     return text, data
